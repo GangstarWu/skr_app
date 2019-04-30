@@ -168,7 +168,7 @@
   .text{
     text-align:left;
     position:absolute;
-    left:600px;
+    left:35%
   }
   .text span{
     display:inline-block;
