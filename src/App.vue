@@ -1,31 +1,72 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <router-view  @song="addsong" @songList="addList"/>
+    <footer>
+      <aplayer :audio="audio" fixed autoplay ref="aplayer"/>
+    </footer>
   </div>
 </template>
 
+<script>
+  export default {
+    data(){
+      return {
+        play_list:[
+          {uname:""}
+        ],
+        audio:[],
+      }
+    },
+    methods: {
+      addsong(data) {
+        for(var i=0;i<this.audio.length;i++){
+          if(data.id==this.audio[i].id){
+            break;
+          }
+        }
+        data.artist=data.singer;
+        data.cover=data.pic;
+        if(i==this.audio.length){
+          this.audio.unshift(data);
+          this.$refs.aplayer.switch(0)
+        }else{
+          this.$refs.aplayer.switch(i)
+        }
+      },
+      addList(data) {
+        this.play_list = data;
+        for(var i of this.play_list){
+          i.artist=i.singer;
+          i.cover=i.pic;
+        }
+        this.audio=this.play_list
+      },
+    },
+  }
+</script>
+
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+  #app {
+    font-family: "AvenirLTStd-Light","PingFangSC-Light","Microsoft YaHei",Helvetica,sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color:#555;
+    text-align:center;
+  }
+  ul{
+    list-style:none;
+  }
+  a{
+    text-decoration:none;
+  }
+  div.aplayer.aplayer-fixed .aplayer-body{
+    max-width: 100%;
+  }
+  div.aplayer.aplayer-fixed .aplayer-lrc{
+    z-index: 100;
+    bottom:24px;
+  }
+  .aplayer-list{
+    text-align:left !important;
+  }
 </style>
