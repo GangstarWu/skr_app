@@ -54,6 +54,7 @@
           "https://api.itooi.cn/music/tencent/song?key=579621905&id="+id
         ).then(res=>{
           this.song=res.data.data;
+          this.song.url="https://v1.itooi.cn/tencent/url?id="+id+"&quality=320"
           this.toparent(this.song)
         })
       },

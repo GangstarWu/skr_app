@@ -110,6 +110,9 @@
       ).then(res=>{
         this.list=res.data.data;
         this.songs=this.list.songs;
+        for(var item of this.songs){
+          item.url="https://v1.itooi.cn/tencent/url?id="+item.id+"&quality=320"
+        }
         this.toparent1(this.songs)
       })
     }

@@ -93,6 +93,7 @@
             this.axios.get(
               "https://api.itooi.cn/music/tencent/song?key=579621905&id="+id
             ).then(res=>{
+              res.data.data.url="https://v1.itooi.cn/tencent/url?id="+res.data.data.id+"&quality=320"
               this.list.push(res.data.data)
               this.toparent1(this.list)
             })
